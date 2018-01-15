@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<Book> books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,26 @@ public class MainActivity extends AppCompatActivity {
                 //TODO add new book
             }
         });
+
+        books = new ArrayList<>();
+        books.add(new Book(
+                "Bible",
+                "Mark, Luke and many more...",
+                "Religion",
+                "Most sold book on earth and holy book of the Christians."
+        ));
+        books.add(new Book(
+                "Fire & Fury",
+                "Michael Wolff",
+                "Biography, Politics",
+                "Controversal book about Donald Trump and his way to become president."
+        ));
+        books.add(new Book(
+                "Harry Potter",
+                "J. K. Rowling",
+                "Fantasy",
+                "Novel about a rowing wizard, going to school and nearly gets killed every year"
+        ));
     }
 
     @Override
