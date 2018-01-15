@@ -1,10 +1,12 @@
 package de.jonny_seitz.simplelibrary;
 
+import java.io.Serializable;
+
 /**
  * Created by Jonny on 15/01/18.
  */
 
-public class Book {
+public class Book implements Serializable {
 
     private String title;
     private String author;

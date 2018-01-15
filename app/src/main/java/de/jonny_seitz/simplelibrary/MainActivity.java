@@ -1,5 +1,6 @@
 package de.jonny_seitz.simplelibrary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -50,10 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 "Novel about a rowing wizard, going to school and nearly gets killed every year"
         ));
 
-
         BookAdapter bookAdapter = new BookAdapter(this, books);
         ListView listView = findViewById(R.id.book_list);
         listView.setAdapter(bookAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getBaseContext(), DetailsActivity.class);
+                intent.putExtra("BOOK", books.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
