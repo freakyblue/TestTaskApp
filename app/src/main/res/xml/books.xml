@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<books>
+    <book>
+        <title>Bible</title>
+        <author>Mark, Luke and many more...</author>
+        <genre>Religion</genre>
+        <description>Most sold book on earth and holy book of the Christians.</description>
+    </book>
+    <book>
+        <title>Fire &amp; Fury</title>
+        <author>Michael Wolff</author>
+        <genre>Biography, Politics</genre>
+        <description>Controversal book about Donald Trump and his way to become president.</description>
+    </book>
+    <book>
+        <title>Harry Potter</title>
+        <author>J. K. Rowling</author>
+        <genre>Fantasy</genre>
+        <description>Novel about a rowing wizard, going to school and nearly gets killed every year.</description>
+    </book>
+</books>

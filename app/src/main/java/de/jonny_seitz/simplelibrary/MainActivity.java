@@ -1,6 +1,7 @@
 package de.jonny_seitz.simplelibrary;
 
 import android.content.Intent;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,10 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,24 +38,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         books = new ArrayList<>();
-        books.add(new Book(
-                "Bible",
-                "Mark, Luke and many more...",
-                "Religion",
-                "Most sold book on earth and holy book of the Christians."
-        ));
-        books.add(new Book(
-                "Fire & Fury",
-                "Michael Wolff",
-                "Biography, Politics",
-                "Controversal book about Donald Trump and his way to become president."
-        ));
-        books.add(new Book(
-                "Harry Potter",
-                "J. K. Rowling",
-                "Fantasy",
-                "Novel about a rowing wizard, going to school and nearly gets killed every year"
-        ));
+        try {
+            getBooks();
+        }
+        catch (Exception e){}
 
         BookAdapter bookAdapter = new BookAdapter(this, books);
         ListView listView = findViewById(R.id.book_list);
@@ -82,4 +73,42 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void getBooks() throws IOException, XmlPullParserException {
+        String title="", author="", genre="", description="";
+        XmlResourceParser parser = getResources().getXml(R.xml.books);
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                switch (parser.getName()) {
+                    case "title":
+                        parser.next();
+                        title = parser.getText();
+                        break;
+                    case "author":
+                        parser.next();
+                        author = parser.getText();
+                        break;
+                    case "genre":
+                        parser.next();
+                        genre = parser.getText();
+                        break;
+                    case "description":
+                        parser.next();
+                        description = parser.getText();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (eventType == XmlPullParser.END_TAG) {
+                if (parser.getName().equals("book")) {
+                    books.add(new Book(title, author, genre, description));
+                }
+            }
+            eventType = parser.next();
+        }
+        parser.close();
+    }
+
 }
