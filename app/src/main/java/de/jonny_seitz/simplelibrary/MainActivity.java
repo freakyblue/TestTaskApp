@@ -2,12 +2,12 @@ package de.jonny_seitz.simplelibrary;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                 "Fantasy",
                 "Novel about a rowing wizard, going to school and nearly gets killed every year"
         ));
+
+
+        BookAdapter bookAdapter = new BookAdapter(this, books);
+        ListView listView = findViewById(R.id.book_list);
+        listView.setAdapter(bookAdapter);
     }
 
     @Override
