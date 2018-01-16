@@ -16,4 +16,4 @@ description and genre will be shown
 - Dynamic loading of the inventory data via XML or JSON parser
 - Usage of an architekture pattern (MVC, MVVM, MVP)
 
-<img src="/imgs/book_list.jpg" height="400"> <img src="/imgs/new_book.jpg" height="400">
+<img src="/imgs/book_list.jpg" height="400"> <img src="/imgs/details.jpg" height="400"> <img src="/imgs/new_book.jpg" height="400">
