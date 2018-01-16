@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO add new book
                 startActivity(new Intent(getBaseContext(), AddActivity.class));
             }
         });
@@ -76,44 +75,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getBooks() throws IOException, XmlPullParserException {
-        String title="", author="", genre="", description="";
-        XmlResourceParser parser = getResources().getXml(R.xml.books);
-        int eventType = parser.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            if (eventType == XmlPullParser.START_TAG) {
-                switch (parser.getName()) {
-                    case "title":
-                        parser.next();
-                        title = parser.getText();
-                        break;
-                    case "author":
-                        parser.next();
-                        author = parser.getText();
-                        break;
-                    case "genre":
-                        parser.next();
-                        genre = parser.getText();
-                        break;
-                    case "description":
-                        parser.next();
-                        description = parser.getText();
-                        break;
-                    default:
-                        break;
+        if (Warehouse.get().getBooks().isEmpty()) {
+            String title="", author="", genre="", description="";
+            XmlResourceParser parser = getResources().getXml(R.xml.books);
+            int eventType = parser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    switch (parser.getName()) {
+                        case "title":
+                            parser.next();
+                            title = parser.getText();
+                            break;
+                        case "author":
+                            parser.next();
+                            author = parser.getText();
+                            break;
+                        case "genre":
+                            parser.next();
+                            genre = parser.getText();
+                            break;
+                        case "description":
+                            parser.next();
+                            description = parser.getText();
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            if (eventType == XmlPullParser.END_TAG) {
-                if (parser.getName().equals("book")) {
-                    books.add(new Book(title, author, genre, description));
+                if (eventType == XmlPullParser.END_TAG) {
+                    if (parser.getName().equals("book")) {
+                        books.add(new Book(title, author, genre, description));
+                    }
                 }
+                eventType = parser.next();
             }
-            eventType = parser.next();
+            parser.close();
+            Warehouse.get().setBooks(books);
         }
-        parser.close();
 
         Book book = (Book) getIntent().getSerializableExtra("ADDBOOK");
-        if (book != null) books.add(book);
-        //TODO store new
+        if (book != null) Warehouse.get().addBook(book);
+
+        books = Warehouse.get().getBooks();
     }
 
 }
