@@ -110,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
             eventType = parser.next();
         }
         parser.close();
+
+        Book book = (Book) getIntent().getSerializableExtra("ADDBOOK");
+        if (book != null) books.add(book);
+        //TODO store new
     }
 
 }
