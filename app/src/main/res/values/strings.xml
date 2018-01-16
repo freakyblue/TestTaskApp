@@ -12,4 +12,5 @@
     <string name="description_text">
         Here will stand a longer description text, which tells a bit more about the book.
     </string>
+    <string name="required">This field is required.</string>
 </resources>

@@ -12,78 +12,85 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/title">
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-            <EditText
-                android:id="@+id/title"
-                android:ems="10"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/title">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/title"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/author">
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/author"
-                android:ems="10"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/author">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/author"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/genre">
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/genre"
-                android:ems="10"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/genre">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/genre"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/description">
-
-            <EditText
-                android:id="@+id/description"
-                android:ems="10"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/description">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/description"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:onClick="addBook"
-            android:text="Add book" />
+            </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="addBook"
+                android:text="Add book" />
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

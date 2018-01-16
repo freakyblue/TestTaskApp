@@ -16,10 +16,21 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void addBook(View view) {
-        //TODO check for correct input
         String title = ((EditText) findViewById(R.id.title)).getText().toString();
+        if(title.equals("")) {
+            ((EditText) findViewById(R.id.title)).setError(getText(R.string.required));
+            return;
+        }//if
         String author = ((EditText) findViewById(R.id.author)).getText().toString();
+        if(author.equals("")) {
+            ((EditText) findViewById(R.id.author)).setError(getText(R.string.required));
+            return;
+        }//if
         String genre = ((EditText) findViewById(R.id.genre)).getText().toString();
+        if(genre.equals("")) {
+            ((EditText) findViewById(R.id.genre)).setError(getText(R.string.required));
+            return;
+        }//if
         String description = ((EditText) findViewById(R.id.description)).getText().toString();
         Book book = new Book(title, author, genre, description);
         Intent intent = new Intent(AddActivity.this, MainActivity.class);
