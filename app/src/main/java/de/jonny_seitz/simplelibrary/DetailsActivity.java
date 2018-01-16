@@ -11,6 +11,7 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Book book = (Book) getIntent().getSerializableExtra("BOOK");
+        getSupportActionBar().setTitle(book.getTitle());
         ((TextView) findViewById(R.id.title)).setText(book.getTitle());
         ((TextView) findViewById(R.id.author)).setText(book.getAuthor());
         ((TextView) findViewById(R.id.genre)).setText(book.getGenre());
