@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO add new book
+                startActivity(new Intent(getBaseContext(), AddActivity.class));
             }
         });
 
