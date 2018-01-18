@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/freakyblue/TestTaskApp.svg?branch=master)](https://travis-ci.org/freakyblue/TestTaskApp)
+[![githubissues](http://img.shields.io/github/issues/freakyblue/TestTaskApp.svg?style=flat)](https://github.com/freakyblue/TestTaskApp/issues)
+[![License: MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://img.shields.io/packagist/l/doctrine/orm.svg)
 # SimpleLibrary
 
 This is just a small repository to show my current app programming skills instead of a paper
@@ -16,4 +19,5 @@ description and genre will be shown
 - Dynamic loading of the inventory data via XML or JSON parser
 - Usage of an architekture pattern (MVC, MVVM, MVP)
 
+## Sceenshots
 <img src="/imgs/book_list.jpg" height="400"> <img src="/imgs/details.jpg" height="400"> <img src="/imgs/new_book.jpg" height="400">
