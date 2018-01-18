@@ -5,12 +5,13 @@ import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private BookAdapter adapter;
     private ArrayList<Book> books;
 
     @Override
@@ -43,18 +46,24 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e){}
 
-        BookAdapter bookAdapter = new BookAdapter(this, books);
-        ListView listView = findViewById(R.id.book_list);
-        listView.setAdapter(bookAdapter);
+        recyclerView = (RecyclerView) findViewById(R.id.book_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new BookAdapter(this, books);
+        recyclerView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recyclerView.setOnClickListener(new RecyclerView.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "t", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getBaseContext(), DetailsActivity.class);
+                int position = recyclerView.getChildLayoutPosition(v);
                 intent.putExtra("BOOK", books.get(position));
                 startActivity(intent);
+
             }
         });
+
     }
 
     @Override
