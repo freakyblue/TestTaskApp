@@ -115,6 +115,11 @@ public class BookTest {
     }
 
     @Test
+    public void testGetGenre()  {
+        assertEquals(book.getGenre(), "Religion");
+    }
+
+    @Test
     public void testGetDescription()  {
         assertEquals(
                 book.getDescription(),
