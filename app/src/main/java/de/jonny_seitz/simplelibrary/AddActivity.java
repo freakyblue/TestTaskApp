@@ -32,7 +32,8 @@ public class AddActivity extends AppCompatActivity {
             return;
         }
         String description = ((EditText) findViewById(R.id.description)).getText().toString();
-        Book book = new Book(title, author, genre, description);
+        int id = Warehouse.get().newId();
+        Book book = new Book(id, title, author, genre, description);
         Intent intent = new Intent(AddActivity.this, MainActivity.class);
         intent.putExtra("ADDBOOK", book);
         startActivity(intent);

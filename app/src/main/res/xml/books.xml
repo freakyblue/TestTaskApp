@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <books>
     <book>
+        <id>1</id>
         <title>Bible</title>
         <author>Mark, Luke and many more...</author>
         <genre>Religion</genre>
         <description>Most sold book on earth and holy book of the Christians.</description>
     </book>
     <book>
+        <id>2</id>
         <title>Fire &amp; Fury</title>
         <author>Michael Wolff</author>
         <genre>Biography, Politics</genre>
         <description>Controversal book about Donald Trump and his way to become president.</description>
     </book>
     <book>
+        <id>3</id>
         <title>Harry Potter</title>
         <author>J. K. Rowling</author>
         <genre>Fantasy</genre>

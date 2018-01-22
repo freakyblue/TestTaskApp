@@ -16,6 +16,7 @@ public class BookTest {
     @org.junit.Before
     public void setUp() {
         book = new Book(
+                42,
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
@@ -26,6 +27,30 @@ public class BookTest {
     @Test
     public void testBook() {
         book = new Book(
+                42,
+                "Bible",
+                "Mark, Luke and many more...",
+                "Religion",
+                "Most sold book on earth and holy book of the Christians."
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBookIdNegative() {
+        book = new Book(
+                -42,
+                "Bible",
+                "Mark, Luke and many more...",
+                "Religion",
+                "Most sold book on earth and holy book of the Christians."
+        );
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBookIdZero() {
+        book = new Book(
+                0,
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
@@ -36,6 +61,7 @@ public class BookTest {
     @Test(expected = NullPointerException.class)
     public void testBookTitleNull() {
         book = new Book(
+                42,
                 null,
                 "Mark, Luke and many more...",
                 "Religion",
@@ -46,6 +72,7 @@ public class BookTest {
     @Test(expected = IllegalArgumentException.class)
     public void testBookTitleEmpty() {
         book = new Book(
+                42,
                 "",
                 "Mark, Luke and many more...",
                 "Religion",
@@ -57,6 +84,7 @@ public class BookTest {
     @Test(expected = NullPointerException.class)
     public void testBookAuthorNull() {
         book = new Book(
+                42,
                 "Bible",
                 null,
                 "Religion",
@@ -67,6 +95,7 @@ public class BookTest {
     @Test(expected = IllegalArgumentException.class)
     public void testBookAuthorEmpty() {
         book = new Book(
+                42,
                 "Bible",
                 "",
                 "Religion",
@@ -77,6 +106,7 @@ public class BookTest {
     @Test(expected = NullPointerException.class)
     public void testBookGenreNull() {
         book = new Book(
+                42,
                 "Bible",
                 "Mark, Luke and many more...",
                 null,
@@ -87,6 +117,7 @@ public class BookTest {
     @Test(expected = IllegalArgumentException.class)
     public void testBookGenreEmpty() {
         book = new Book(
+                42,
                 "Bible",
                 "Mark, Luke and many more...",
                 "",
@@ -97,6 +128,7 @@ public class BookTest {
     @Test(expected = NullPointerException.class)
     public void testBookDescriptionNull() {
         book = new Book(
+                42,
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",

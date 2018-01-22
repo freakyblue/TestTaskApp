@@ -32,4 +32,14 @@ public class Warehouse {
     public ArrayList<Book> getBooks() {
         return books;
     }
+
+    public int newId() {
+        int max = 0;
+        for (Book book: books) {
+            if (book.getId() > max)
+                max = book.getId();
+        }
+        return max+1;
+    }
+
 }

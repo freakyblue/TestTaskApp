@@ -90,12 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void getBooks() throws IOException, XmlPullParserException {
         if (Warehouse.get().getBooks().isEmpty()) {
+            int id = 0;
             String title="", author="", genre="", description="";
             XmlResourceParser parser = getResources().getXml(R.xml.books);
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     switch (parser.getName()) {
+                        case "id":
+                            parser.next();
+                            id = Integer.parseInt(parser.getText());
+                            break;
                         case "title":
                             parser.next();
                             title = parser.getText();
@@ -118,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (eventType == XmlPullParser.END_TAG) {
                     if (parser.getName().equals("book")) {
-                        books.add(new Book(title, author, genre, description));
+                        books.add(new Book(id, title, author, genre, description));
                     }
                 }
                 eventType = parser.next();
