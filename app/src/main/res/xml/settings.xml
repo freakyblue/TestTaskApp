@@ -1,0 +1,15 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/default_title_library_name"
+        android:inputType="textCapWords"
+        android:key="pref_library_title"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/description_library_name"
+        android:title="@string/title_library_name" />
+
+</PreferenceScreen>

@@ -13,4 +13,9 @@
         Here will stand a longer description text, which tells a bit more about the book.
     </string>
     <string name="required">This field is required.</string>
+
+    <string name="settings">Settings</string>
+    <string name="title_library_name">Library name</string>
+    <string name="default_title_library_name">My Library</string>
+    <string name="description_library_name">This name will be set as library title.</string>
 </resources>

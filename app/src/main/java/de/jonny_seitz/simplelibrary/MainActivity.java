@@ -1,6 +1,8 @@
 package de.jonny_seitz.simplelibrary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        SharedPreferences sharedPreferences =
+                getSharedPreferences("warehouse", Context.MODE_PRIVATE);
+        getSupportActionBar().setTitle(sharedPreferences.getString("library_name", ""));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void getBooks() throws IOException, XmlPullParserException {

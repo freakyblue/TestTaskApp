@@ -35,6 +35,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.jonny_seitz.simplelibrary.MainActivity" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.jonny_seitz.simplelibrary.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
