@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/freakyblue/TestTaskApp.svg?branch=master)](https://travis-ci.org/freakyblue/TestTaskApp)
 [![githubissues](http://img.shields.io/github/issues/freakyblue/TestTaskApp.svg?style=flat)](https://github.com/freakyblue/TestTaskApp/issues)
-[![License: MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://img.shields.io/packagist/l/doctrine/orm.svg)
+[![apm](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/freakyblue/TestTaskApp/blob/master/LICENSE)
 # SimpleLibrary
 
 This is just a small repository to show my current app programming skills instead of a paper
