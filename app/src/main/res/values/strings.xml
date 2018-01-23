@@ -4,6 +4,8 @@
     <string name="title_activity_details">DetailsActivity</string>
     <string name="title_activity_add">AddActivity</string>
     <string name="add_book">Add new book</string>
+    <string name="book_removed">Book removed</string>
+    <string name="undo">Undo</string>
 
     <string name="title">Title</string>
     <string name="author">Author</string>
