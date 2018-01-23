@@ -1,18 +1,34 @@
 package de.jonny_seitz.simplelibrary;
 
-import java.io.Serializable;
+import java.util.Random;
+
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Jonny on 15/01/18.
  */
 
-public class Book implements Serializable {
+public class Book extends RealmObject {
 
+    @PrimaryKey
     private int id;
     private String title;
     private String author;
     private String genre;
     private String description;
+
+    public Book () {
+        Random rand = new Random();
+        Realm realm = Realm.getDefaultInstance();
+        id = ((int) (long) realm.where(Book.class).max("id"))+1;
+        realm.close();
+        title = "Not set";
+        author = "Not set";
+        genre = "Not set";
+        description = "Not set";
+    }
 
     public Book(int id, String title, String author, String genre, String description) {
         if (id <= 0)
@@ -57,4 +73,5 @@ public class Book implements Serializable {
     public String getDescription() {
         return description;
     }
+
 }

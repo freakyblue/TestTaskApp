@@ -46,7 +46,6 @@ public class SettingsActivity extends AppCompatActivity {
                     .setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object o) {
-                            System.out.println(o.toString());
                             editor.putString("library_name", o.toString());
                             editor.apply();
                             return true;

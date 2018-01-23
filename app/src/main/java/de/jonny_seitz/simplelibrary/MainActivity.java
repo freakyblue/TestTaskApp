@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -21,11 +20,15 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BookAdapter adapter;
     private ArrayList<Book> books;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +59,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BookAdapter(this, books);
         recyclerView.setAdapter(adapter);
-
-        recyclerView.setOnClickListener(new RecyclerView.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "t", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getBaseContext(), DetailsActivity.class);
-                int position = recyclerView.getChildLayoutPosition(v);
-                intent.putExtra("BOOK", books.get(position));
-                startActivity(intent);
-
-            }
-        });
-
     }
 
     @Override
@@ -89,7 +79,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getBooks() throws IOException, XmlPullParserException {
-        if (Warehouse.get().getBooks().isEmpty()) {
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
+        RealmResults<Book> dbBooks = realm.where(Book.class).findAll();
+        if (dbBooks.isEmpty()) {
             int id = 0;
             String title="", author="", genre="", description="";
             XmlResourceParser parser = getResources().getXml(R.xml.books);
@@ -123,19 +116,20 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (eventType == XmlPullParser.END_TAG) {
                     if (parser.getName().equals("book")) {
-                        books.add(new Book(id, title, author, genre, description));
+                        realm.beginTransaction();
+                        realm.copyToRealm(new Book(id, title, author, genre, description));
+                        realm.commitTransaction();
                     }
                 }
                 eventType = parser.next();
             }
             parser.close();
-            Warehouse.get().setBooks(books);
         }
 
-        Book book = (Book) getIntent().getSerializableExtra("ADDBOOK");
-        if (book != null) Warehouse.get().addBook(book);
-
-        books = Warehouse.get().getBooks();
+        //copy book items from dbBook to books
+        for (int i=0; i<dbBooks.size(); i++) {
+            books.add(dbBooks.get(i));
+        }
     }
 
 }

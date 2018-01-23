@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import io.realm.Realm;
+
 public class AddActivity extends AppCompatActivity {
 
     @Override
@@ -32,10 +34,13 @@ public class AddActivity extends AppCompatActivity {
             return;
         }
         String description = ((EditText) findViewById(R.id.description)).getText().toString();
-        int id = Warehouse.get().newId();
-        Book book = new Book(id, title, author, genre, description);
-        Intent intent = new Intent(AddActivity.this, MainActivity.class);
-        intent.putExtra("ADDBOOK", book);
-        startActivity(intent);
+
+        Realm realm = Realm.getDefaultInstance();
+        int id = ((int) (long) realm.where(Book.class).max("id"))+1;
+        realm.beginTransaction();
+        realm.copyToRealm(new Book(id, title, author, genre, description));
+        realm.commitTransaction();
+        realm.close();
+        startActivity(new Intent(AddActivity.this, MainActivity.class));
     }
 }

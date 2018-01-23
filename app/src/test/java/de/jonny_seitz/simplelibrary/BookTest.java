@@ -2,6 +2,8 @@ package de.jonny_seitz.simplelibrary;
 
 import org.junit.Test;
 
+import io.realm.Realm;
+
 import static org.junit.Assert.assertEquals;
 
 /**
