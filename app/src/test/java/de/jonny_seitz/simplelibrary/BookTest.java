@@ -139,25 +139,34 @@ public class BookTest {
     }
 
     @Test
-    public void testGetTitle()  {
+    public void testGetTitle() {
         assertEquals(book.getTitle(), "Bible");
     }
 
     @Test
-    public void testGetAuthor()  {
+    public void testGetAuthor() {
         assertEquals(book.getAuthor(), "Mark, Luke and many more...");
     }
 
     @Test
-    public void testGetGenre()  {
+    public void testGetGenre() {
         assertEquals(book.getGenre(), "Religion");
     }
 
     @Test
-    public void testGetDescription()  {
+    public void testGetDescription() {
         assertEquals(
                 book.getDescription(),
                 "Most sold book on earth and holy book of the Christians."
+        );
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals(
+                book.toString(),
+                "Book(42 | Bible | Mark, Luke and many more... | Religion | "+
+                        "Most sold book ...)"
         );
     }
 

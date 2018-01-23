@@ -74,4 +74,10 @@ public class Book extends RealmObject {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return "Book("+id+" | "+title+" | "+author+" | "+genre+" | "+
+                description.substring(0, 15)+"...)";
+    }
+
 }
