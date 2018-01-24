@@ -139,6 +139,11 @@ public class BookTest {
     }
 
     @Test
+    public void testGetId() {
+        assertEquals(book.getId(), 42);
+    }
+
+    @Test
     public void testGetTitle() {
         assertEquals(book.getTitle(), "Bible");
     }

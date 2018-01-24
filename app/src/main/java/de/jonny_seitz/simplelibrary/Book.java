@@ -20,7 +20,6 @@ public class Book extends RealmObject {
     private String description;
 
     public Book () {
-        Random rand = new Random();
         Realm realm = Realm.getDefaultInstance();
         id = ((int) (long) realm.where(Book.class).max("id"))+1;
         realm.close();

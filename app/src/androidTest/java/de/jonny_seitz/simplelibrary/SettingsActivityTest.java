@@ -20,36 +20,47 @@ import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFro
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.supportsInputMethods;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
 
 /**
- * Created by Jonny on 17/01/18.
+ * Created by Jonny on 23/01/18.
  */
 
 @RunWith(AndroidJUnit4.class)
-public class ProcedureTests {
+public class SettingsActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule =
             new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void addBookTest() throws Exception {
+    public void displayTest() throws Exception {
         Thread.sleep(500);
-        onView(withId(R.id.fab)).perform(click());
-        onView(withId(R.id.title)).check(matches(isDisplayed()));
-        onView(withId(R.id.author)).check(matches(isDisplayed()));
-        onView(withId(R.id.genre)).check(matches(isDisplayed()));
-        onView(withId(R.id.description)).check(matches(isDisplayed()));
-        onView(withId(R.id.title)).perform(typeText("Test book"));
-        onView(withId(R.id.author)).perform(typeText("Test author"));
-        onView(withId(R.id.genre)).perform(typeText("Test genre"));
-        onView(withId(R.id.button_add)).perform(click());
-        onView(withText("Test book")).perform(click());
-        Thread.sleep(1000);
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Settings")).perform(click());
+        onView(withText(R.string.settings)).check(matches(isDisplayed()));
+        onView(withText(R.string.title_library_name)).check(matches(isDisplayed()));
+        onView(withText(R.string.description_library_name)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void nameLibraryTest() throws Exception {
+        Thread.sleep(500);
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Settings")).perform(click());
+        onView(withText("Library name")).perform(click());
+        onView(supportsInputMethods())
+                .perform(clearText())
+                .perform(typeText("Congress Library"));
+        onView(withText("OK")).perform(click());
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
+        onView(allOf(
+                isAssignableFrom(TextView.class),
+                withParent(isAssignableFrom(Toolbar.class))
+        )).check(matches(withText("Congress Library")));
+        Thread.sleep(3000);
     }
 
 }
