@@ -22,7 +22,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -33,7 +34,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -44,7 +46,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -56,7 +59,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -67,7 +71,8 @@ public class BookTest {
                 null,
                 "Mark, Luke and many more...",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -78,7 +83,8 @@ public class BookTest {
                 "",
                 "Mark, Luke and many more...",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -90,7 +96,8 @@ public class BookTest {
                 "Bible",
                 null,
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -101,7 +108,8 @@ public class BookTest {
                 "Bible",
                 "",
                 "Religion",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -112,7 +120,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 null,
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -123,7 +132,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 "",
-                "Most sold book on earth and holy book of the Christians."
+                "Most sold book on earth and holy book of the Christians.",
+                "20180125_104242.jpg"
         );
     }
 
@@ -134,7 +144,8 @@ public class BookTest {
                 "Bible",
                 "Mark, Luke and many more...",
                 "Religion",
-                null
+                null,
+                "20180125_104242.jpg"
         );
     }
 
@@ -164,6 +175,11 @@ public class BookTest {
                 book.getDescription(),
                 "Most sold book on earth and holy book of the Christians."
         );
+    }
+
+    @Test
+    public void testGetCover() {
+        assertEquals(book.getCover(),"20180125_104242.jpg");
     }
 
     @Test
