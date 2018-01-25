@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 if (eventType == XmlPullParser.END_TAG) {
                     if (parser.getName().equals("book")) {
                         realm.beginTransaction();
-                        realm.copyToRealm(new Book(id, title, author, genre, description));
+                        realm.copyToRealm(new Book(id, title, author, genre, description, null));
                         realm.commitTransaction();
                     }
                 }

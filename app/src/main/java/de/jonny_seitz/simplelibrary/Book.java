@@ -1,7 +1,5 @@
 package de.jonny_seitz.simplelibrary;
 
-import java.util.Random;
-
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -18,6 +16,7 @@ public class Book extends RealmObject {
     private String author;
     private String genre;
     private String description;
+    private String cover;
 
     public Book () {
         Realm realm = Realm.getDefaultInstance();
@@ -27,9 +26,10 @@ public class Book extends RealmObject {
         author = "Not set";
         genre = "Not set";
         description = "Not set";
+        cover = null;
     }
 
-    public Book(int id, String title, String author, String genre, String description) {
+    public Book(int id, String title, String author, String genre, String description, String cover) {
         if (id <= 0)
             throw new IllegalArgumentException("id has to be positive!");
         if (title == null)
@@ -51,6 +51,7 @@ public class Book extends RealmObject {
         this.author = author;
         this.genre = genre;
         this.description = description;
+        this.cover = cover;
     }
 
     public int getId() {
@@ -71,6 +72,10 @@ public class Book extends RealmObject {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getCover() {
+        return cover;
     }
 
     @Override
