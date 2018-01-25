@@ -3,8 +3,7 @@
 [![apm](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/freakyblue/TestTaskApp/blob/master/LICENSE)
 # SimpleLibrary
 
-This is just a small repository to show my current app programming skills instead of a paper
-application, to get a part-time job at [cathleen-scharfe.de](https://cathleen-scharfe.de).
+A small demo Android application of a library to show my current app programming skills. Step by step I try to solve the given tasks, which are listed below.
 
 ## Task
 The task is to write a inventory app with the following characteristics:
