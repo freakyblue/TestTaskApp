@@ -20,3 +20,7 @@ description and genre will be shown
 
 ## Sceenshots
 <img src="/imgs/book_list.jpg" height="400"> <img src="/imgs/details.jpg" height="400"> <img src="/imgs/new_book.jpg" height="400">
+
+## Contribution
+Feel free to open forks, issues or pull requests. I like to improve my skills and
+am open for tips.
