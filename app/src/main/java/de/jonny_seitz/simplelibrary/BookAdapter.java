@@ -3,15 +3,20 @@ package de.jonny_seitz.simplelibrary;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
 import io.realm.Realm;
@@ -42,6 +47,25 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         Book book = books.get(position);
         holder.getTitle().setText(book.getTitle());
         holder.getAuthor().setText(book.getAuthor());
+        if (book.getCover() != null) {
+            System.out.println(book.getCover().toString());
+            File file = new File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                    book.getCover()
+            );
+            if(file.exists()) {
+                Bitmap bitmap = BitmapFactory
+                        .decodeFile(file.getAbsolutePath(), new BitmapFactory.Options());
+                int height = 150;
+                bitmap = Bitmap.createScaledBitmap(
+                        bitmap,
+                        bitmap.getWidth()/(bitmap.getHeight()/height),
+                        height,
+                        true
+                );
+                holder.getCover().setImageBitmap(bitmap);
+            }
+        }
         holder.getListItem().setOnClickListener(new RecyclerView.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -91,12 +115,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     class BookViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title, author;
+        private ImageView cover;
         private LinearLayout listItem;
 
         public BookViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             author = (TextView) itemView.findViewById(R.id.author);
+            cover = (ImageView) itemView.findViewById(R.id.cover);
             listItem = (LinearLayout) itemView.findViewById(R.id.list_item);
         }
 
@@ -106,6 +132,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         public TextView getAuthor() {
             return author;
+        }
+
+        public ImageView getCover() {
+            return cover;
         }
 
         public LinearLayout getListItem() {
