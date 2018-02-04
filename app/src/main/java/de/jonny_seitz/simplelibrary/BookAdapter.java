@@ -1,6 +1,7 @@
 package de.jonny_seitz.simplelibrary;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,28 +28,27 @@ import io.realm.Realm;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 
-    private Context context;
+    private Activity activity;
     private List<Book> books;
 
-    public BookAdapter(Activity context, List<Book> books) {
-        this.context = context;
+    public BookAdapter(Activity activity, List<Book> books) {
+        this.activity = activity;
         this.books = books;
     }
 
     @Override
     public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
+        View view = LayoutInflater.from(activity)
                 .inflate(R.layout.list_item, parent, false);
         return new BookViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(BookViewHolder holder, final int position) {
+    public void onBindViewHolder(final BookViewHolder holder, final int position) {
         Book book = books.get(position);
         holder.getTitle().setText(book.getTitle());
         holder.getAuthor().setText(book.getAuthor());
         if (book.getCover() != null) {
-            System.out.println(book.getCover().toString());
             File file = new File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                     book.getCover()
@@ -69,9 +69,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.getListItem().setOnClickListener(new RecyclerView.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
+                Intent intent = new Intent(activity, DetailsActivity.class);
                 intent.putExtra("BOOK-ID", books.get(position).getId());
-                context.startActivity(intent);
+                activity.startActivity(
+                        intent,
+                        ActivityOptions.makeSceneTransitionAnimation(
+                                        activity,
+                                        holder.getCover(),
+                                        "target"
+                        ).toBundle()
+                );
             }
         });
     }

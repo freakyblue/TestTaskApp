@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
+import android.view.Gravity;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +47,16 @@ public class DetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.author)).setText(book.getAuthor());
         ((TextView) findViewById(R.id.genre)).setText(book.getGenre());
         ((TextView) findViewById(R.id.description)).setText(book.getDescription());
+
+        //transition
+        Slide slide = new Slide(Gravity.BOTTOM);
+        slide.setInterpolator(AnimationUtils.loadInterpolator(
+                this,
+                android.R.interpolator.linear_out_slow_in
+        ));
+        getWindow().setEnterTransition(slide);
+
+
     }
 
 }
