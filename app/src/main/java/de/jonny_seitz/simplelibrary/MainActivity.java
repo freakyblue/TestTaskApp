@@ -129,11 +129,8 @@ public class MainActivity extends AppCompatActivity {
             }
             parser.close();
         }
-
         //copy book items from dbBook to books
-        for (int i=0; i<dbBooks.size(); i++) {
-            books.add(dbBooks.get(i));
-        }
+        books.addAll(dbBooks);
     }
 
 }

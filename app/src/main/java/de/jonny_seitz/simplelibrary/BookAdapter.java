@@ -76,7 +76,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                         ActivityOptions.makeSceneTransitionAnimation(
                                         activity,
                                         holder.getCover(),
-                                        "target"
+                                        "target_cover"
                         ).toBundle()
                 );
             }
