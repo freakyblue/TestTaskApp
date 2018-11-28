@@ -1,4 +1,6 @@
-package de.jonny_seitz.simplelibrary;
+package de.jonny_seitz.simplelibrary.Model;
+
+import com.google.gson.annotations.SerializedName;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
@@ -11,10 +13,15 @@ import io.realm.annotations.PrimaryKey;
 public class Book extends RealmObject {
 
     @PrimaryKey
+    @SerializedName("id")
     private int id;
+    @SerializedName("title")
     private String title;
+    @SerializedName("author")
     private String author;
+    @SerializedName("genre")
     private String genre;
+    @SerializedName("description")
     private String description;
     private String cover;
 
@@ -52,6 +59,7 @@ public class Book extends RealmObject {
         this.genre = genre;
         this.description = description;
         this.cover = cover;
+        System.out.println("Book "+title+" created");
     }
 
     public int getId() {

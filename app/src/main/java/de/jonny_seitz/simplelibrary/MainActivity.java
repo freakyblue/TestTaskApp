@@ -21,8 +21,13 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import de.jonny_seitz.simplelibrary.Connection.ApiConnection;
+import de.jonny_seitz.simplelibrary.Connection.ApiGenerator;
+import de.jonny_seitz.simplelibrary.Model.Book;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +68,26 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper helper = new ItemTouchHelper(new SwipeHelper(adapter, recyclerView));
         helper.attachToRecyclerView(recyclerView);
+
+
+        // load data from server
+        ApiGenerator.create(ApiConnection.class)
+                .getDef()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> {
+                            System.out.println("response\n"+response);
+                            books.addAll(response);
+                            realm.beginTransaction();
+                            realm.copyToRealm(books);
+                            realm.commitTransaction();
+                            adapter.notifyDataSetChanged();
+                        },
+                        error -> System.out.println("error\n"+error)
+                );
+
+
     }
 
     @Override

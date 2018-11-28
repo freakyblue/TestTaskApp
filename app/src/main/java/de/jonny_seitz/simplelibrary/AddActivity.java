@@ -20,6 +20,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.jonny_seitz.simplelibrary.Model.Book;
 import io.realm.Realm;
 
 public class AddActivity extends AppCompatActivity {

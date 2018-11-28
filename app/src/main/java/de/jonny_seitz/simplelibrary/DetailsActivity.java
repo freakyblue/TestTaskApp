@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import de.jonny_seitz.simplelibrary.Model.Book;
 import io.realm.Realm;
 
 public class DetailsActivity extends AppCompatActivity {

@@ -2,7 +2,7 @@ package de.jonny_seitz.simplelibrary;
 
 import org.junit.Test;
 
-import io.realm.Realm;
+import de.jonny_seitz.simplelibrary.Model.Book;
 
 import static org.junit.Assert.assertEquals;
 
