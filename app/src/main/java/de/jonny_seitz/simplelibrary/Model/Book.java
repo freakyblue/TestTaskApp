@@ -39,25 +39,11 @@ public class Book extends RealmObject {
     public Book(int id, String title, String author, String genre, String description, String cover) {
         if (id <= 0)
             throw new IllegalArgumentException("id has to be positive!");
-        if (title == null)
-            throw new NullPointerException("title can't be null!");
-        if (title.equals(""))
-            throw new IllegalArgumentException("title can't be empty!");
-        if (author == null)
-            throw new NullPointerException("author can't be null!");
-        if (author.equals(""))
-            throw new IllegalArgumentException("author can't be empty!");
-        if (genre == null)
-            throw new NullPointerException("genre can't be null!");
-        if (genre.equals(""))
-            throw new IllegalArgumentException("genre can't be empty!");
-        if (description == null)
-            throw new NullPointerException("description can't be null!");
         this.id = id;
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
-        this.description = description;
+        setTitle(title);
+        setAuthor(author);
+        setGenre(genre);
+        setDescription(description);
         this.cover = cover;
         System.out.println("Book "+title+" created");
     }
@@ -92,4 +78,37 @@ public class Book extends RealmObject {
                 description.substring(0, 15)+"...)";
     }
 
+    public void setTitle(String title) {
+        if (title == null)
+            throw new NullPointerException("title can't be null!");
+        if (title.equals(""))
+            throw new IllegalArgumentException("title can't be empty!");
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        if (author == null)
+            throw new NullPointerException("author can't be null!");
+        if (author.equals(""))
+            throw new IllegalArgumentException("author can't be empty!");
+        this.author = author;
+    }
+
+    public void setGenre(String genre) {
+        if (genre == null)
+            throw new NullPointerException("genre can't be null!");
+        if (genre.equals(""))
+            throw new IllegalArgumentException("genre can't be empty!");
+        this.genre = genre;
+    }
+
+    public void setDescription(String description) {
+        if (description == null)
+            throw new NullPointerException("description can't be null!");
+        this.description = description;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 }
