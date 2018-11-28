@@ -20,6 +20,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.jonny_seitz.simplelibrary.Connection.ApiConnection;
 import de.jonny_seitz.simplelibrary.Connection.ApiGenerator;
@@ -78,11 +79,12 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(
                         response -> {
                             System.out.println("response\n"+response);
-                            books.addAll(response);
+                            addOrUpdateBooks(response);
+                            /*books.addAll(response);
                             realm.beginTransaction();
                             realm.copyToRealm(books);
                             realm.commitTransaction();
-                            adapter.notifyDataSetChanged();
+                            */adapter.notifyDataSetChanged();
                         },
                         error -> System.out.println("error\n"+error)
                 );
@@ -156,6 +158,31 @@ public class MainActivity extends AppCompatActivity {
         }
         //copy book items from dbBook to books
         books.addAll(dbBooks);
+    }
+
+    private void addOrUpdateBooks (List<Book> newBooks) {
+        for (Book newBook : newBooks) {
+            System.out.println("new book: "+newBook.getTitle());
+            //update if book already in DB
+            if (realm.where(Book.class).equalTo("id", newBook.getId()).count() == 1) {
+                System.out.println("update "+newBook.getTitle());
+                realm.beginTransaction();
+                Book dbBook = realm.where(Book.class).equalTo("id", newBook.getId()).findFirst();
+                dbBook.setTitle(newBook.getTitle());
+                dbBook.setAuthor(newBook.getAuthor());
+                dbBook.setGenre(newBook.getGenre());
+                dbBook.setDescription(newBook.getDescription());
+                dbBook.setCover(newBook.getCover());
+                realm.commitTransaction();
+            }
+            else {
+                //insert new book
+                System.out.println("insert "+newBook.getTitle());
+                realm.beginTransaction();
+                realm.copyToRealm(newBook);
+                realm.commitTransaction();
+            }
+        }
     }
 
 }
