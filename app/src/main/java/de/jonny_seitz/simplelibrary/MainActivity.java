@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,64 +31,47 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
     private BookAdapter adapter;
-    private ArrayList<Book> books;
     private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         SharedPreferences sharedPreferences =
                 getSharedPreferences("warehouse", Context.MODE_PRIVATE);
         getSupportActionBar().setTitle(sharedPreferences.getString("library_name", ""));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), AddActivity.class));
-            }
-        });
+        findViewById(R.id.fab).setOnClickListener(view -> startActivity(
+                new Intent(getBaseContext(), AddActivity.class)
+        ));
 
-        books = new ArrayList<>();
         try {
-            getBooks();
+            getDefaultBooks();
         }
         catch (Exception e){}
 
-        recyclerView = (RecyclerView) findViewById(R.id.book_list);
+        recyclerView = findViewById(R.id.book_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BookAdapter(this, books);
+        adapter = new BookAdapter(this, getDBBooks());
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper helper = new ItemTouchHelper(new SwipeHelper(adapter, recyclerView));
         helper.attachToRecyclerView(recyclerView);
 
+        //refresh swipe
+        swipeContainer = findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(() -> {
+            loadBooksFromServer();
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
 
-        // load data from server
-        ApiGenerator.create(ApiConnection.class)
-                .getDef()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        response -> {
-                            System.out.println("response\n"+response);
-                            addOrUpdateBooks(response);
-                            /*books.addAll(response);
-                            realm.beginTransaction();
-                            realm.copyToRealm(books);
-                            realm.commitTransaction();
-                            */adapter.notifyDataSetChanged();
-                        },
-                        error -> System.out.println("error\n"+error)
-                );
-
-
+        loadBooksFromServer();
     }
 
     @Override
@@ -109,7 +91,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getBooks() throws IOException, XmlPullParserException {
+    public void loadBooksFromServer() {
+        // load data from server
+        ApiGenerator.create(ApiConnection.class)
+                .getDef()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> {
+                            System.out.println("response\n"+response);
+                            addOrUpdateBooks(response);
+                            adapter.setBooks(getDBBooks());
+                            adapter.notifyDataSetChanged();
+                            swipeContainer.setRefreshing(false);
+                        },
+                        error -> {
+                            System.out.println("error\n"+error);
+                            swipeContainer.setRefreshing(false);
+                        }
+                );
+    }
+
+    /*
+    * Adds default books to DB if DB is empty
+     */
+    private void getDefaultBooks() throws IOException, XmlPullParserException {
         Realm.init(this);
         realm = Realm.getDefaultInstance();
         RealmResults<Book> dbBooks = realm.where(Book.class).findAll();
@@ -156,8 +162,14 @@ public class MainActivity extends AppCompatActivity {
             }
             parser.close();
         }
-        //copy book items from dbBook to books
-        books.addAll(dbBooks);
+    }
+
+    private List<Book> getDBBooks() {
+        List<Book> books = new ArrayList<>();
+        for(Book book : realm.where(Book.class).findAll()) {
+            books.add(book);
+        }
+        return books;
     }
 
     private void addOrUpdateBooks (List<Book> newBooks) {

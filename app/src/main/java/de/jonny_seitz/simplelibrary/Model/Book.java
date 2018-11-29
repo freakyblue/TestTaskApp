@@ -27,7 +27,12 @@ public class Book extends RealmObject {
 
     public Book () {
         Realm realm = Realm.getDefaultInstance();
-        id = ((int) (long) realm.where(Book.class).max("id"))+1;
+        if (realm.where(Book.class).count() == 0) {
+            id = 1;
+        }
+        else {
+            id = ((int) (long) realm.where(Book.class).max("id"))+1;
+        }
         realm.close();
         title = "Not set";
         author = "Not set";
@@ -39,6 +44,7 @@ public class Book extends RealmObject {
     public Book(int id, String title, String author, String genre, String description, String cover) {
         if (id <= 0)
             throw new IllegalArgumentException("id has to be positive!");
+        //TODO check if id is unique in DB
         this.id = id;
         setTitle(title);
         setAuthor(author);

@@ -35,6 +35,20 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         this.books = books;
     }
 
+    public void clear() {
+        books.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Book> newBooks) {
+        books.addAll(newBooks);
+        notifyDataSetChanged();
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity)
