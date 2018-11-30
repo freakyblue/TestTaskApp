@@ -11,6 +11,7 @@ script:
 
 before_install:
 - chmod +x gradlew
+- yes | sdkmanager "platforms;android-27"
 
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
