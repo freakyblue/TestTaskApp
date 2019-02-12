@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"/>
 
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,8 +44,8 @@
                 android:value="de.jonny_seitz.simplelibrary.MainActivity" />
         </activity>
         <provider
-            android:name=".GenericFileProvider"
-            android:authorities="${applicationId}.de.jonny_seitz.simplelibrary.provider"
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="de.jonny_seitz.simplelibrary.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

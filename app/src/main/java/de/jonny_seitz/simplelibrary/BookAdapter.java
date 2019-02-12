@@ -2,6 +2,7 @@ package de.jonny_seitz.simplelibrary;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -100,29 +101,29 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         final int position = viewHolder.getAdapterPosition();
         final Book book = books.get(position);
         //Log.i("DB-Error", "removeBook\n"+book);
-        Snackbar.make(recyclerView, R.string.book_removed, Snackbar.LENGTH_LONG)
-                .setAction(R.string.undo, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //Log.i("DB-Error", "onClick\n"+book);
-                                /**
-                                 * not working correct: book (final) is deleted after declaration
-                                 * check Log for DB-Error
-                                Realm realm = Realm.getDefaultInstance();
-                                realm.beginTransaction();
-                                realm.copyToRealm(book);
-                                realm.commitTransaction();
-                                books.add(position, book);
-                                notifyItemInserted(books.indexOf(position));
-                                recyclerView.scrollToPosition(books.indexOf(position));
-                                 **/
-                            }
-                        }
-                ).show();
-        Realm realm = Realm.getDefaultInstance();
+        Snackbar.make(
+                    recyclerView,
+                R.string.book+" "+book.getTitle()+" "+R.string.removed, Snackbar.LENGTH_LONG
+                )
+                .setAction(R.string.undo, v -> {
+                    System.out.println("pos: "+position);
+                    /**
+                     * not working correct: book (final) is deleted after declaration
+                     * check Log for DB-Error
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    realm.copyToRealm(book);
+                    realm.commitTransaction();
+                    books.add(position, book);
+                    notifyItemInserted(books.indexOf(position));
+                    recyclerView.scrollToPosition(books.indexOf(position));
+                     **/
+                })
+                .show();
+        /*Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         book.deleteFromRealm();
-        realm.commitTransaction();
+        realm.commitTransaction();*/
         books.remove(position);
         this.notifyItemRemoved(position);
     }

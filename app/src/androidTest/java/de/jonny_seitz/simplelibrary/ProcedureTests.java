@@ -39,7 +39,7 @@ public class ProcedureTests {
         onView(withId(R.id.genre)).perform(typeText("Test genre"));
         onView(withId(R.id.button_add)).perform(click());
         onView(withText("Test book")).perform(click());
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
 }

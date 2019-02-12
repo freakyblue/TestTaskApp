@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BookAdapter(this, getDBBooks());
         recyclerView.setAdapter(adapter);
 
-        ItemTouchHelper helper = new ItemTouchHelper(new SwipeHelper(adapter, recyclerView));
+        //swipe to delete
+        ItemTouchHelper helper = new ItemTouchHelper(new SwipeToDelete(adapter, recyclerView));
         helper.attachToRecyclerView(recyclerView);
 
         //refresh swipe

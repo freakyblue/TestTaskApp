@@ -7,12 +7,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
  * Created by Jonny on 23/01/18.
  */
 
-public class SwipeHelper extends ItemTouchHelper.SimpleCallback {
+public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
 
     private BookAdapter adapter;
     private RecyclerView recyclerView;
 
-    public SwipeHelper(BookAdapter adapter, RecyclerView recyclerView) {
+    public SwipeToDelete(BookAdapter adapter, RecyclerView recyclerView) {
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT);
         this.adapter = adapter;
         this.recyclerView = recyclerView;
