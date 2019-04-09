@@ -9,7 +9,7 @@ android:
     - tools
     - tools
     - platform-tools
-    - build-tools-19.0.3
+    - build-tools-21
     - $ANDROID_TARGET
     - sys-img-armeabi-v7a-$ANDROID_TARGET
     - extra-android-support
@@ -22,7 +22,7 @@ android:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a
 
 before_script:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
