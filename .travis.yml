@@ -2,12 +2,19 @@
 language: android
 android:
   components:
+    - tools
+    - tools
+    - platform-tools
     - build-tools-19.0.3
     - $ANDROID_TARGET
     - sys-img-armeabi-v7a-$ANDROID_TARGET
     - extra-android-support
     - extra-android-m2repository
     - extra-google-m2repository
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 env:
   matrix:
     - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
