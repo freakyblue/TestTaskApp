@@ -106,10 +106,12 @@ public class AddActivity extends AppCompatActivity {
         }
         String description = ((EditText) findViewById(R.id.description)).getText().toString();
 
-        System.out.println("cover: "+cover);//TODO remove
-        if (!(new File(cover)).exists()) {
-            cover = null;
+        //System.out.println("cover: "+cover);//TODO remove
+        try {
+            File file = new File(cover);
+            if (!file.exists()) cover = "";
         }
+        catch (Exception e) {}
 
         Realm realm = Realm.getDefaultInstance();
         int id = realm.where(Book.class).max("id").intValue()+1;

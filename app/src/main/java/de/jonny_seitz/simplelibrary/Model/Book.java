@@ -31,7 +31,7 @@ public class Book extends RealmObject {
             id = 1;
         }
         else {
-            id = ((int) (long) realm.where(Book.class).max("id"))+1;
+            id = realm.where(Book.class).max("id").intValue()+1;
         }
         realm.close();
         title = "Not set";

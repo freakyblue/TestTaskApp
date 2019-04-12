@@ -1,5 +1,7 @@
 package de.jonny_seitz.simplelibrary;
 
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -38,6 +40,7 @@ public class ProcedureTests {
         onView(withId(R.id.author)).perform(typeText("Test author"));
         onView(withId(R.id.genre)).perform(typeText("Test genre"));
         onView(withId(R.id.button_add)).perform(click());
+        onView(ViewMatchers.withId(R.id.book_list)).perform(ViewActions.swipeUp());
         onView(withText("Test book")).perform(click());
         Thread.sleep(3000);
     }
