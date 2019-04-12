@@ -30,10 +30,7 @@ public class DetailsActivity extends AppCompatActivity {
                 .findFirst();
         getSupportActionBar().setTitle(book.getTitle());
         if (book.getCover() != null) {
-            File file = new File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                    book.getCover()
-            );
+            File file = new File(book.getCover());
             if(file.exists()) {
                 Bitmap bitmap = BitmapFactory
                         .decodeFile(file.getAbsolutePath(), new BitmapFactory.Options());

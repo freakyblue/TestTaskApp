@@ -62,11 +62,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         Book book = books.get(position);
         holder.getTitle().setText(book.getTitle());
         holder.getAuthor().setText(book.getAuthor());
+        //
+        holder.getCover().setImageDrawable(activity.getDrawable(R.drawable.icon_book));
         if (book.getCover() != null) {
-            File file = new File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                    book.getCover()
-            );
+            File file = new File(book.getCover());
             if(file.exists()) {
                 Bitmap bitmap = BitmapFactory
                         .decodeFile(file.getAbsolutePath(), new BitmapFactory.Options());
@@ -80,20 +79,19 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                 holder.getCover().setImageBitmap(bitmap);
             }
         }
-        holder.getListItem().setOnClickListener(new RecyclerView.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, DetailsActivity.class);
-                intent.putExtra("BOOK-ID", books.get(position).getId());
-                activity.startActivity(
-                        intent,
-                        ActivityOptions.makeSceneTransitionAnimation(
-                                        activity,
-                                        holder.getCover(),
-                                        "target_cover"
-                        ).toBundle()
-                );
-            }
+
+        //System.out.println("title: "+book.getTitle()+"| cover: "+book.getCover());//TODO remove
+        holder.getListItem().setOnClickListener(v -> {
+            Intent intent = new Intent(activity, DetailsActivity.class);
+            intent.putExtra("BOOK-ID", books.get(position).getId());
+            activity.startActivity(
+                    intent,
+                    ActivityOptions.makeSceneTransitionAnimation(
+                                    activity,
+                                    holder.getCover(),
+                                    "target_cover"
+                    ).toBundle()
+            );
         });
     }
 
